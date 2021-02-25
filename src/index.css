@@ -15,3 +15,12 @@ code {
 p{
   margin : 0
 }
+h4{
+  margin: 0
+}
+.MuiAvatar-root{
+  background-color: white;
+}
+.MuiIconButton-root:hover{
+  background-color: transparent !important;
+}

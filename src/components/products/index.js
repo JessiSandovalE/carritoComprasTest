@@ -13,6 +13,7 @@ import { getProducts } from '../../api/products'
 //Context
 import { ProductsContex } from '../../context/products'
 
+
 const Products = () => {
   const settings = {
     dots: true,
@@ -21,27 +22,59 @@ const Products = () => {
     slidesToShow: 5,
     slidesToScroll: 1
   };
-  const { products, setProducts } = useContext(ProductsContex)
+  const {
+    products, setProducts,
+    cart, setCart,
+    total, setTotal
+  } = useContext(ProductsContex)
 
   useEffect(()=> {
     getProducts()
       .then(response => response.json())
       .then(result => {
-        console.log(result)
         setProducts(result)
       })
       .catch(error => console.log('error', error))
   }, [setProducts])
 
-  const addCart = (item) => {
-    console.log(item)
+  const addProduct = (indexCart, itemId)=> {
+    const cartCopy = Object.assign({}, cart)
+    if (cartCopy[indexCart]){
+      cartCopy[indexCart].order +=1
+    }else{
+      alert('Bye')
+    }
   }
 
+  const addCart = (item) => {
+    const exist = cart.find(p => p.id === item.id)
+    const productId = item.id
+    const productCart = {
+      id: item.id,
+      image:item.image,
+      title: item.price_real,
+      netContent:item.net_content,
+      supplier:item.supplier,
+      order: 1,
+      price: item.price_real
+    }
+    if(undefined !== exist && exist !== null) {
+      console.log('Ya Existe en la canasta')
+      const indexCart = cart.findIndex(x=> x.id === exist.id)
+      setTotal(total+1)
+      addProduct(indexCart, productId)
+    }else{
+      setCart([...cart,
+        productCart
+      ])
+      setTotal(total+1)
+    }
+  }
   return (
     <div className={ ProductsStyle }>
       <h3>Nuevo en SuperFuds</h3>
       <Slider { ...settings } >
-      {products.map ((item) => 
+      {products.map ((item) =>
         <Card key={item.id} className='productCard'>
           <CardContent>
             <div className="imageContent">

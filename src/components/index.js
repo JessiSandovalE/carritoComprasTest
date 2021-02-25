@@ -1,12 +1,14 @@
 import React from 'react'
+import Router from './router'
+//components
 import Navbar from './navbar'
-import Products from './products'
+
 
 const Aplication = () => {
   return (
     <div>
       <Navbar/>
-      <Products/>
+      <Router/>
     </div>
   )
 }
