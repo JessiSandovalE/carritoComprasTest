@@ -1,23 +1,30 @@
 import {style} from  'typestyle'
-
+import {Color} from '../../styles/var'
 export const ProductsStyle = style({
-  margin:'0px 40px',
+  margin:'0px 60px',
+  marginTop: '50px',
   $nest: {
+    color: Color.darkGrey,
     '& .productCard':{
-      maxWidth: '220px',
+      maxWidth: '230px',
       display:'flex',
       justifyContent:'center',
       alignItems:'center',
       $nest: {
         '& .imageContent':{
           height: '185px',
-          position: 'relative',
           padding:'10px 20px',
           boxSizing:'border-box',
+          position:'relative',
           $nest: {
-            '& img': {
-              width:'100%',
+            '& .imageProduct': {
+              width:'90%',
               height: '100%',
+              position: 'relative'
+            },
+            '& .stamp': {
+              position: 'absolute',
+              right:'0'
             }
           }
         },
@@ -28,8 +35,8 @@ export const ProductsStyle = style({
           alignItems:'center',
           $nest: {
             '& .itemVolume': {
-              backgroundColor: '#269e7e',
-              color: '#ffffff',
+              backgroundColor: Color.darkGreen,
+              color: Color.white,
               display:'flex',
               alignItems:'center',
               justifyContent:'center',
@@ -61,28 +68,53 @@ export const ProductsStyle = style({
           alignItems:'center',
           $nest:{
             '& span': {
-              color: '#25c16a',
+              color: Color.lightGreen,
               fontWeight:'600'
             },
             '& small':{
               fontWeight:'200',
-              fontSize: '1rem',
-              paddingLeft:'5px'
+              fontSize: '14px',
+              paddingLeft:'5px',
+              color: Color.darkGrey
             }
           }
         },
-        '& .MuiCardActions-root':{
-          padding:'0px',
+        '& .btnShow': {
+          display: 'none'
         },
-        '& .MuiButton-text':{
-          padding: '10px 0px',
-          width:'100%',
-          backgroundColor: '#25c16a',
-          color:'#ffffff',
-          fontWeight:'600',
-          textTransform:'none'
-        }
       }
     },
+    '& .productCard:hover':{
+      '& .btnShow': {
+        display: 'flex'
+      },
+    },
+    '& .MuiCardActions-root':{
+      padding:'0px',
+    },
+    '& .MuiButton-text':{
+      padding: '10px 0px',
+      width:'100%',
+      backgroundColor: Color.lightGreen,
+      color:Color.white,
+      fontWeight:'600',
+      textTransform:'none'
+    },
+    '& .slick-arrow': {
+      backgroundColor:Color.white,
+      height: '30px',
+      width: '30px'
+    },
+
+    '& .slick-prev:before, .slick-next:before':{
+      color: Color.lightGreen,
+      fontSize: '30px'
+    },
+    '& .slick-prev': {
+      left:'-40px'
+    },
+    '& .slick-next': {
+      right:'-40px'
+    }
   }
 })

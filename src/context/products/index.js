@@ -7,13 +7,15 @@ const ProductsProvider = ({children}) => {
   const [ cart, setCart ] = useState([])
   const [suma, setSuma] = useState(0)
   const [total, setTotal] = useState(0)
+  const [active, setActive] = useState(false)
   return (
     <Provider
       value = {{
         products, setProducts,
         cart, setCart,
         suma, setSuma,
-        total, setTotal
+        total, setTotal,
+        active, setActive
       }}
     >
       {children}

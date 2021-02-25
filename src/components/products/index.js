@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
+import Tooltip from '@material-ui/core/Tooltip'
 //Style
 import { ProductsStyle } from './style'
 //API
@@ -16,7 +17,7 @@ import { ProductsContex } from '../../context/products'
 
 const Products = () => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 5,
@@ -74,13 +75,21 @@ const Products = () => {
     <div className={ ProductsStyle }>
       <h3>Nuevo en SuperFuds</h3>
       <Slider { ...settings } >
+      
       {products.map ((item) =>
         <Card key={item.id} className='productCard'>
           <CardContent>
             <div className="imageContent">
               <div className="stamp">
+                {item.sellos.map((sello, i) => 
+                 <Tooltip title= {`Producto ${sello.name}`} placement="right-start" arrow>
+                <div key ={i}> 
+                  <img src={sello.image} alt={sello.name}/>
+                </div>
+                </Tooltip>
+              )}
               </div>
-              <img src={item.thumbnail} alt={item.title} />
+              <img className="imageProduct" src={item.thumbnail} alt={item.title} />
             </div>
             <hr/>
             <div className="volume">
@@ -92,7 +101,7 @@ const Products = () => {
             <p className="title">{item.title}</p>
             <p className="price"><span>$</span>{item.price_real}<small className='priceUnids'> x{item.units_sf} unids</small></p>
           </CardContent>
-          <CardActions>
+          <CardActions className="btnShow">
             <Button className='addCart' onClick={()=>addCart(item) }>
               Agregar al carrito
             </Button>
