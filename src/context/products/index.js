@@ -15,7 +15,7 @@ const ProductsProvider = ({children}) => {
         cart, setCart,
         suma, setSuma,
         total, setTotal,
-        active, setActive
+        active, setActive,
       }}
     >
       {children}

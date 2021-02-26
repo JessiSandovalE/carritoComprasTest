@@ -26,7 +26,7 @@ const Products = () => {
   const {
     products, setProducts,
     cart, setCart,
-    total, setTotal
+    total, setTotal,
   } = useContext(ProductsContex)
 
   useEffect(()=> {
@@ -38,32 +38,31 @@ const Products = () => {
       .catch(error => console.log('error', error))
   }, [setProducts])
 
-  const addProduct = (indexCart, itemId)=> {
+  const addProduct = (indexCart, itemId,totalVal)=> {
     const cartCopy = Object.assign({}, cart)
     if (cartCopy[indexCart]){
-      cartCopy[indexCart].order +=1
     }else{
-      alert('Bye')
+      console.log('Bye')
     }
   }
 
   const addCart = (item) => {
     const exist = cart.find(p => p.id === item.id)
     const productId = item.id
+    const totalVal = item.price_real
     const productCart = {
       id: item.id,
       image:item.image,
-      title: item.price_real,
+      title: item.title,
       netContent:item.net_content,
       supplier:item.supplier,
       order: 1,
-      price: item.price_real
+      price: item.price_real,
     }
     if(undefined !== exist && exist !== null) {
-      console.log('Ya Existe en la canasta')
       const indexCart = cart.findIndex(x=> x.id === exist.id)
       setTotal(total+1)
-      addProduct(indexCart, productId)
+      addProduct(indexCart, productId, totalVal)
     }else{
       setCart([...cart,
         productCart
@@ -71,19 +70,19 @@ const Products = () => {
       setTotal(total+1)
     }
   }
+
   return (
     <div className={ ProductsStyle }>
       <h3>Nuevo en SuperFuds</h3>
       <Slider { ...settings } >
-      
-      {products.map ((item) =>
-        <Card key={item.id} className='productCard'>
+      {products.map ((item, i) =>
+        <Card key={i} className='productCard'>
           <CardContent>
             <div className="imageContent">
               <div className="stamp">
-                {item.sellos.map((sello, i) => 
-                 <Tooltip title= {`Producto ${sello.name}`} placement="right-start" arrow>
-                <div key ={i}> 
+                {item.sellos.map((sello, i) =>
+                 <Tooltip key ={i} title= {`Producto ${sello.name}`} placement="right-start" arrow>
+                <div>
                   <img src={sello.image} alt={sello.name}/>
                 </div>
                 </Tooltip>
